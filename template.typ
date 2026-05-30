@@ -22,9 +22,9 @@
 [# endif #]
 [# if options.heading_numbering #]
   heading-numbering: "[-options.heading_numbering-]",
+[# endif #]
 [# if options.full_width_body !== undefined #]
   full-width-body: [-options.full_width_body-],
-[# endif #]
 [# endif #]
 [# if options.theme #]
   theme: [-options.theme-],
