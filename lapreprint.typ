@@ -82,7 +82,14 @@
 
   show link: it => [#text(fill: theme)[#it]]
   show ref: it => [#text(fill: theme)[#it]]
-  show figure.caption: set align(start)
+  show figure: it => {
+    it
+    v(1.5em)
+  }
+  show figure.caption: it => block(width: 80%, below: 1em)[
+    #set text(size: 9pt)
+    #align(start, it)
+  ]
 
   set page(
     paper-size,
@@ -338,6 +345,6 @@
 
   if (bibliography-file != none) {
     show bibliography: set text(8pt)
-    bibliography(bibliography-file, title: text(10pt, "References"), style: bibliography-style)
+    bibliography(bibliography-file, title: block(sticky: true, text(10pt, "References")), style: bibliography-style)
   }
 }
