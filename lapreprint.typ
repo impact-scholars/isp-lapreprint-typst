@@ -11,8 +11,10 @@
   authors: (),
   // This is the affiliations list. Include an id and `name` in each affiliation. These are shown below the authors.
   affiliations: (),
-  // The paper's abstract. Can be omitted if you don't have one.
+  // The paper's abstract.
   abstract: none,
+  // The plain-language summary. Optional. Content or a single image.
+  summary: none,
   // The short-title is shown in the running header
   short-title: none,
   // The short-citation is shown in the running header, if set to auto it will show the author(s) and the year in APA format.
@@ -198,35 +200,36 @@
   }
 
 
-  // Title and subtitle
-  box(inset: (bottom: 2pt), width: 100%, text(17pt, weight: "bold", fill: theme, title))
-  if subtitle != none {
-    parbreak()
-    box(width: 100%, text(14pt, fill: gray.darken(30%), subtitle))
-  }
-  // Authors and affiliations
-  if authors.len() > 0 {
-    box(inset: (y: 10pt), {
-      authors.map(author => {
-        text(11pt, weight: "semibold", author.name)
-        h(1pt)
-        if "affiliations" in author {
-          super(author.affiliations)
-        }
-        if "orcid" in author {
-          orcidLogo(orcid: author.orcid)
-        }
-      }).join(", ", last: ", and ")
-    })
-  }
-  if affiliations.len() > 0 {
-    box(inset: (bottom: 10pt), {
-      affiliations.map(affiliation => {
-        super(affiliation.id)
-        h(1pt)
-        affiliation.name
-      }).join(", ")
-    })
+  // Title, subtitle, authors, affiliations.
+  let front-matter = {
+    box(inset: (bottom: 2pt), width: 100%, text(17pt, weight: "bold", fill: theme, title))
+    if subtitle != none {
+      parbreak()
+      box(width: 100%, text(14pt, fill: gray.darken(30%), subtitle))
+    }
+    if authors.len() > 0 {
+      box(inset: (y: 10pt), {
+        authors.map(author => {
+          text(11pt, weight: "semibold", author.name)
+          h(1pt)
+          if "affiliations" in author {
+            super(author.affiliations)
+          }
+          if "orcid" in author {
+            orcidLogo(orcid: author.orcid)
+          }
+        }).join(", ", last: ", and ")
+      })
+    }
+    if affiliations.len() > 0 {
+      box(inset: (bottom: 10pt), {
+        affiliations.map(affiliation => {
+          super(affiliation.id)
+          h(1pt)
+          affiliation.name
+        }).join(", ")
+      })
+    }
   }
 
 
@@ -274,30 +277,44 @@
   )
 
 
-  let abstracts
-  if (type(abstract) == content or type(abstract) == str) {
-    abstracts = ((title: "Abstract", content: abstract),)
-  } else {
-    abstracts = abstract
-  }
-
-if (abstracts != none and abstracts.len() > 0) {
-    box(inset: (top: 16pt, bottom: 16pt), width: 100%, stroke: (top: 1pt + gray, bottom: 1pt + gray), {
-      abstracts.map(abs => {
-        set par(justify: true)
-        text(fill: theme, weight: "semibold", size: 9pt, abs.title)
-        parbreak()
-        abs.content
-      }).join(parbreak())
-    })
-  }
-  if (keywords.len() > 0) {
+  let keywords-block = if (keywords.len() > 0) {
     text(size: 9pt, {
       text(fill: theme, weight: "semibold", "Keywords")
       h(8pt)
       keywords.join(", ")
     })
-  }
+  } else { none }
+
+  let inset-y = 16pt
+
+  // bordered box holding the abstract and/or plain-language summary
+  let abox = block(
+    inset: (top: inset-y, bottom: inset-y),
+    width: 100%,
+    stroke: (top: 1pt + gray, bottom: 1pt + gray),
+    {
+      set par(justify: true)
+      if abstract != none {
+        text(fill: theme, weight: "semibold", size: 9pt, "Abstract")
+        parbreak()
+        abstract
+      }
+      if summary != none {
+        if abstract != none { parbreak() }
+        text(fill: theme, weight: "semibold", size: 9pt, "Plain Language Summary")
+        parbreak()
+        // center images in the summary (MyST drops the image's `:align:`)
+        {
+          show image: it => align(center, it)
+          summary
+        }
+      }
+    },
+  )
+
+  front-matter
+  if abstract != none or summary != none { abox }
+  keywords-block
   v(10pt)
 
   show par: set par(spacing: 1.5em, justify: true)

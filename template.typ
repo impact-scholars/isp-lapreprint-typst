@@ -1,25 +1,15 @@
 #import "lapreprint.typ": *
 #show: template.with(
   title: "[-doc.title-]",
-[# if parts.abstract or parts.summary #]
-  abstract: (
 [# if parts.abstract #]
-    (
-      title: "Abstract",
-      content: [
+  abstract: [
 [-parts.abstract-]
-      ]
-    ),
+  ],
 [# endif #]
 [# if parts.summary #]
-    (
-      title: "Plain Language Summary",
-      content: [
+  summary: [
 [-parts.summary-]
-      ]
-    ),
-[# endif #]
-  ),
+  ],
 [# endif #]
 [# if doc.subtitle #]
   subtitle: "[-doc.subtitle-]",
