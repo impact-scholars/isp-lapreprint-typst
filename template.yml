@@ -1,12 +1,13 @@
 jtex: v1
 kind: typst
-title: LaPreprint Typst Template
-description: Easily create beautiful preprints in Typst
+title: ISP LaPreprint Typst Template
+description: Impact Scholars Program preprint template, based on LaPreprint
 template: template.typ
 files:
   - lapreprint.typ
   - frontmatter.typ
   - template.typ
+  - logo-watermark.svg
   - LICENSE
 authors:
   - name: Rowan Cockett
@@ -17,14 +18,18 @@ authors:
     github: fwkoch
     affiliations:
       - Curvenote
-version: 0.0.1
+  - name: Paolo Marzolo
+    github: pollomarzo
+    affiliations:
+      - Neuromatch
+version: 0.1.0-isp
 license: MIT
 tags:
   - preprint
   - article
   - paper
 thumbnail: ./examples/pixels/files/screenshot.png
-github: https://github.com/myst-templates/lapreprint-typst
+github: https://github.com/impact-scholars/isp-lapreprint-typst
 doc:
   - id: title
     required: true
@@ -57,7 +62,7 @@ options:
     type: string
     description: |
       Allows to set the colortheme, e.g. red.darken(30%).
-      Default set to blue.darken(30%)
+      Default set to rgb("#45429C").
       
 
 parts:

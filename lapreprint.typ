@@ -35,7 +35,7 @@
   margin: (),
   paper-size: "us-letter",
   // A color for the theme of the document
-  theme: blue.darken(30%),
+  theme: rgb("#45429C"),
   // Date published, for example, when you publish your preprint to an archive server.
   // To hide the date, set this to `none`. You can also supply a list of dicts with `title` and `date`.
   date: datetime.today(),
@@ -76,6 +76,7 @@
 
   show link: it => [#text(fill: theme)[#it]]
   show ref: it => [#text(fill: theme)[#it]]
+  show figure.caption: set align(start)
 
   set page(
     paper-size,
@@ -180,10 +181,11 @@
   if (logo != none) {
     place(
       top,
-      dx: -33%,
+      dx: -30%,
+      dy: -5%,
       float: false,
       box(
-        width: 27%,
+        width: 20%,
         {
           if (type(logo) == content) {
             logo
@@ -298,7 +300,7 @@ if (abstracts != none and abstracts.len() > 0) {
   }
   v(10pt)
 
-  show par: set par(spacing: 1.5em)
+  show par: set par(spacing: 1.5em, justify: true)
 
   // Display the paper's contents.
   body

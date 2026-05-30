@@ -1,3 +1,6 @@
+> [!IMPORTANT]
+> This is a fork of LaPreprint for the Impact Scholars Program at Neuromatch, where we update logo location, text alignment and default colors. For the original template, see [upstream](https://github.com/myst-templates/lapreprint-typst)
+
 <h1 align="center">LaPreprint for Typst</h1>
 <p align="center">
 <a href="https://github.com/rowanc1/LaPreprint/blob/main/LICENSE"><img alt="MIT License" src="https://img.shields.io/github/license/rowanc1/lapreprint?style=flat-square"></a>

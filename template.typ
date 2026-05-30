@@ -83,6 +83,8 @@
 [# endif #]
 [# if options.logo #]
   logo: "[-options.logo-]",
+[# else #]
+  logo: "logo-watermark.svg",
 [# endif #]
 [# if options.kind #]
   kind: "[-options.kind-]",
