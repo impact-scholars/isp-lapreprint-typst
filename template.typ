@@ -38,6 +38,9 @@
 [# if doc.github #]
   repository: "[-doc.github-]",
 [# endif #]
+[# if options.youtube #]
+  youtube: "[-options.youtube-]",
+[# endif #]
 [# if doc.date #]
   date: datetime(
     year: [-doc.date.year-],

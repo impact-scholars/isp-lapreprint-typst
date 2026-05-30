@@ -31,6 +31,8 @@
   doi: none,
   // A link to the source repository, shown in the first-page sidebar.
   repository: none,
+  // A link to the seminar recording on YouTube, shown in the first-page sidebar.
+  youtube: none,
   heading-numbering: "1.a.i",
   // Show an Open Access badge on the first page, and support open science, default is true, because that is what the default should be.
   open-access: true,
@@ -284,14 +286,25 @@
           text(fill: theme, weight: "bold", "Source Repository")
           [\ ]
           link(repository, {
-            box(height: 1em, baseline: 2pt, image("GitHub_Invertocat_Black.svg"))
+            box(height: 1em, baseline: 25%, image("GitHub_Invertocat_Black.svg"))
             h(3pt)
             repository.replace("https://github.com/", "").replace("https://", "")
           })
         })
       }
+      let youtube-entry = if (youtube != none) {
+        text(size: 7pt, {
+          text(fill: theme, weight: "bold", "Seminar Recording")
+          [\ ]
+          link(youtube, {
+            box(height: 1em, baseline: 15%, image("yt_icon_almostblack_digital.png"))
+            h(3pt)
+            "Watch on YouTube"
+          })
+        })
+      }
       grid(columns: 1, gutter: 2em,
-        ..(repo-entry,).filter(e => e != none),
+        ..(repo-entry, youtube-entry).filter(e => e != none),
         ..margin.map(side => {
           text(size: 7pt, {
             if ("title" in side) {

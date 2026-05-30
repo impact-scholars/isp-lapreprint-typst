@@ -9,6 +9,7 @@ files:
   - template.typ
   - logo-watermark.svg
   - GitHub_Invertocat_Black.svg
+  - yt_icon_almostblack_digital.png
   - LICENSE
 authors:
   - name: Rowan Cockett
@@ -50,6 +51,9 @@ options:
   - id: kind
     type: string
     description: The "kind" of the content, e.g. "Original Research" - shown as the title of the margin content on the first page
+  - id: youtube
+    type: string
+    description: URL to the seminar recording on YouTube, shown in the first-page sidebar
   - id: short_citation
     type: string
     description: |
