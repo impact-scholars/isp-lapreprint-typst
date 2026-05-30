@@ -8,6 +8,7 @@ files:
   - frontmatter.typ
   - template.typ
   - logo-watermark.svg
+  - GitHub_Invertocat_Black.svg
   - LICENSE
 authors:
   - name: Rowan Cockett
@@ -40,6 +41,7 @@ doc:
   - id: open_access
   - id: keywords
   - id: doi
+  - id: github
   - id: venue
 options:
   - id: logo

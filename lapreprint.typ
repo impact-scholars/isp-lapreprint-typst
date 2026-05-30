@@ -29,6 +29,8 @@
   logo: none,
   // A DOI link, shown in the header on the first page. Should be just the DOI, e.g. `10.10123/123456` ,not a URL
   doi: none,
+  // A link to the source repository, shown in the first-page sidebar.
+  repository: none,
   heading-numbering: "1.a.i",
   // Show an Open Access badge on the first page, and support open science, default is true, because that is what the default should be.
   open-access: true,
@@ -277,17 +279,31 @@
         )
       }
       v(2em)
-      grid(columns: 1, gutter: 2em, ..margin.map(side => {
+      let repo-entry = if (repository != none) {
         text(size: 7pt, {
-          if ("title" in side) {
-            text(fill: theme, weight: "bold", side.title)
-            [\ ]
-          }
-          set enum(indent: 0.1em, body-indent: 0.25em)
-          set list(indent: 0.1em, body-indent: 0.25em)
-          side.content
+          text(fill: theme, weight: "bold", "Source Repository")
+          [\ ]
+          link(repository, {
+            box(height: 1em, baseline: 2pt, image("GitHub_Invertocat_Black.svg"))
+            h(3pt)
+            repository.replace("https://github.com/", "").replace("https://", "")
+          })
         })
-      }))
+      }
+      grid(columns: 1, gutter: 2em,
+        ..(repo-entry,).filter(e => e != none),
+        ..margin.map(side => {
+          text(size: 7pt, {
+            if ("title" in side) {
+              text(fill: theme, weight: "bold", side.title)
+              [\ ]
+            }
+            set enum(indent: 0.1em, body-indent: 0.25em)
+            set list(indent: 0.1em, body-indent: 0.25em)
+            side.content
+          })
+        })
+      )
     }),
   )
 

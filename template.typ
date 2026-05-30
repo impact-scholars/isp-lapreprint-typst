@@ -35,6 +35,9 @@
 [# if doc.doi #]
   doi: "[-doc.doi-]",
 [# endif #]
+[# if doc.github #]
+  repository: "[-doc.github-]",
+[# endif #]
 [# if doc.date #]
   date: datetime(
     year: [-doc.date.year-],
