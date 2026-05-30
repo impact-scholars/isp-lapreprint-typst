@@ -15,6 +15,10 @@
   abstract: none,
   // The plain-language summary. Optional. Content or a single image.
   summary: none,
+  // When true (default), page 1 is a cover with the 25% left margin and the body
+  // restarts full-width on a new page. Set false to keep the 25% margin throughout
+  // and flow the body continuously (no cover page break).
+  full-width-body: true,
   // The short-title is shown in the running header
   short-title: none,
   // The short-citation is shown in the running header, if set to auto it will show the author(s) and the year in APA format.
@@ -181,22 +185,26 @@
 
 
   if (logo != none) {
-    place(
-      top,
-      dx: -30%,
-      dy: -5%,
-      float: false,
-      box(
-        width: 20%,
-        {
-          if (type(logo) == content) {
-            logo
-          } else {
-            image(logo, width: 100%)
-          }
-        },
-      ),
-    )
+    context {
+      // assumes margin 25%
+      let margin-w = 0.25 * page.width
+      place(
+        top + left,
+        dx: -margin-w,
+        dy: -5%,
+        float: false,
+        box(
+          width: margin-w,
+          align(center, {
+            if (type(logo) == content) {
+              logo
+            } else {
+              image(logo, width: 60%)
+            }
+          }),
+        ),
+      )
+    }
   }
 
 
@@ -316,6 +324,12 @@
   if abstract != none or summary != none { abox }
   keywords-block
   v(10pt)
+
+  // Cover transition: by default reset to full-width pages and break to a new page
+  // for the body. `full-width-body: false` keeps the 25% margin throughout and
+  // flows the body continuously (no break).
+  set page(margin: auto) if full-width-body
+  if full-width-body { pagebreak(weak: true) }
 
   show par: set par(spacing: 1.5em, justify: true)
 

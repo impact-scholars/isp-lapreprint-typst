@@ -58,6 +58,13 @@ options:
     description: |
       Heading numbering style.
       See also https://typst.app/docs/reference/model/numbering/.
+  - id: full_width_body
+    type: boolean
+    default: true
+    description: |
+      When true (default), page 1 is a cover with the wide left margin and the
+      body restarts full-width on a new page. Set false to keep the wide left
+      margin throughout and flow the body continuously (no cover page break).
   - id: theme
     type: string
     description: |
