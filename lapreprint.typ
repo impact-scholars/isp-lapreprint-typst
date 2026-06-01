@@ -152,6 +152,7 @@
 
   // Configure headings.
   set heading(numbering: heading-numbering)
+  show heading: set block(sticky: true)
   show heading: it => context {
     let loc = here()
     // Find out the final number of the heading counter.
