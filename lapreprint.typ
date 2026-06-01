@@ -86,8 +86,13 @@
 
   show link: it => [#text(fill: theme)[#it]]
   show ref: it => [#text(fill: theme)[#it]]
+  // Keep figures and tables (body + caption) together so captions don't orphan onto
+  // the next page. A wrapping non-breakable block is required here: MyST emits a
+  // per-figure `set block(breakable: breakableDefault)` (true) right before each
+  // figure, which overrides any template-level `set block` rule. Wrapping the whole
+  // realized figure in an outer block that can't break sidesteps that.
   show figure: it => {
-    it
+    block(breakable: false, it)
     v(1.5em)
   }
   show figure.caption: it => block(width: 80%, below: 1em)[
@@ -152,7 +157,6 @@
 
   // Configure headings.
   set heading(numbering: heading-numbering)
-  show heading: set block(sticky: true)
   show heading: it => context {
     let loc = here()
     // Find out the final number of the heading counter.
@@ -163,27 +167,32 @@
       // We don't want to number of the acknowledgment section.
       #let is-ack = it.body in ([Acknowledgment], [Acknowledgement])
       // #set align(center)
-      #set text(if is-ack { 10pt } else { 12pt })
-      #show: smallcaps
       #v(20pt, weak: true)
-      #if it.numbering != none and not is-ack {
-        numbering(heading-numbering, ..levels)
-        [.]
-        h(7pt, weak: true)
-      }
-      #it.body
+      // Wrap the heading in a sticky block so it can't orphan from the body that follows.
+      #block(sticky: true, above: 0pt, below: 0pt)[
+        #set text(if is-ack { 10pt } else { 12pt })
+        #show: smallcaps
+        #if it.numbering != none and not is-ack {
+          numbering(heading-numbering, ..levels)
+          [.]
+          h(7pt, weak: true)
+        }
+        #it.body
+      ]
       #v(13.75pt, weak: true)
     ] else if it.level == 2 [
       // Second-level headings are run-ins.
       #set par(first-line-indent: 0pt)
-      #set text(style: "italic")
       #v(10pt, weak: true)
-      #if it.numbering != none {
-        numbering(heading-numbering, ..levels)
-        [.]
-        h(7pt, weak: true)
-      }
-      #it.body
+      #block(sticky: true, above: 0pt, below: 0pt)[
+        #set text(style: "italic")
+        #if it.numbering != none {
+          numbering(heading-numbering, ..levels)
+          [.]
+          h(7pt, weak: true)
+        }
+        #it.body
+      ]
       #v(10pt, weak: true)
     ] else [
       // Third level headings are run-ins too, but different.
