@@ -66,6 +66,9 @@
 [# if author.affiliations #]
       affiliations: "[#- for aff in author.affiliations -#][-aff.index-][#- if not loop.last -#],[#- endif -#][#- endfor -#]",
 [# endif #]
+[# if author.equal_contributor #]
+      equal_contributor: true,
+[# endif #]
     ),
 [# endfor #]
   ),

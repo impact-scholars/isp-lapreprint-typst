@@ -244,6 +244,9 @@
           if "affiliations" in author {
             super(author.affiliations)
           }
+          if "equal_contributor" in author {
+            super[†]
+          }
           if "orcid" in author {
             orcidLogo(orcid: author.orcid)
           }
@@ -258,6 +261,9 @@
           affiliation.name
         }).join(", ")
       })
+    }
+    if authors.any(author => "equal_contributor" in author) {
+      box(inset: (bottom: 10pt), text(9pt, [#super[†]These authors contributed equally to this work.]))
     }
   }
 
