@@ -71,6 +71,13 @@ options:
       When true (default), page 1 is a cover with the wide left margin and the
       body restarts full-width on a new page. Set false to keep the wide left
       margin throughout and flow the body continuously (no cover page break).
+  - id: breakable_figures
+    type: boolean
+    default: false
+    description: |
+      When true, figures (and their captions) may break across pages instead of
+      being forced into a single block. Escape hatch for very large content such
+      as supplementary tables. Default false keeps figures together.
   - id: theme
     type: string
     description: |

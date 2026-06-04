@@ -26,6 +26,9 @@
 [# if options.full_width_body !== undefined #]
   full-width-body: [-options.full_width_body-],
 [# endif #]
+[# if options.breakable_figures !== undefined #]
+  breakable-figures: [-options.breakable_figures-],
+[# endif #]
 [# if options.theme #]
   theme: [-options.theme-],
 [# endif #]

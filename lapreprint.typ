@@ -19,6 +19,10 @@
   // restarts full-width on a new page. Set false to keep the 25% margin throughout
   // and flow the body continuously (no cover page break).
   full-width-body: true,
+  // When true, figures (and their captions) may break across pages instead of
+  // being forced into a single block. Escape hatch for very large content, e.g.
+  // supplementary tables. Default false keeps figures together.
+  breakable-figures: false,
   // The short-title is shown in the running header
   short-title: none,
   // The short-citation is shown in the running header, if set to auto it will show the author(s) and the year in APA format.
@@ -92,7 +96,7 @@
   // figure, which overrides any template-level `set block` rule. Wrapping the whole
   // realized figure in an outer block that can't break sidesteps that.
   show figure: it => {
-    block(breakable: false, it)
+    if breakable-figures { it } else { block(breakable: false, it) }
     v(1.5em)
   }
   show figure.caption: it => block(width: 80%, below: 1em)[
