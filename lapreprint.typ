@@ -200,7 +200,7 @@
       #v(10pt, weak: true)
     ] else [
       // Third level headings are run-ins too, but different.
-      #if it.level == 3 {
+      #if it.level == 3 and it.numbering != none {
         numbering(heading-numbering, ..levels)
         [. ]
       }
