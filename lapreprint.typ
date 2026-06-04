@@ -47,6 +47,8 @@
   // Content to put on the margin of the first page
   // Should be a list of dicts with `title` and `content`
   margin: (),
+  // A list of corresponding-author dicts with `name` and `email`, shown in the sidebar.
+  corresponding: (),
   paper-size: "us-letter",
   // A color for the theme of the document
   theme: rgb("#45429C"),
@@ -323,8 +325,17 @@
           })
         })
       }
+      let correspondence-entry = if (corresponding.len() > 0) {
+        text(size: 7pt, {
+          text(fill: theme, weight: "bold", "Correspondence")
+          [\ ]
+          corresponding.map(author => {
+            link("mailto:" + author.email)[#author.name]
+          }).join(", ")
+        })
+      }
       grid(columns: 1, gutter: 2em,
-        ..(repo-entry, youtube-entry).filter(e => e != none),
+        ..(repo-entry, youtube-entry, correspondence-entry).filter(e => e != none),
         ..margin.map(side => {
           text(size: 7pt, {
             if ("title" in side) {

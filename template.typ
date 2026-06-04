@@ -112,6 +112,16 @@
     ),
 [# endif #]
   ),
+  corresponding: (
+[# for author in doc.authors #]
+[# if author.corresponding #]
+    (
+      name: "[-author.name-]",
+      email: "[-author.email-]",
+    ),
+[# endif #]
+[# endfor #]
+  ),
 )
 
 [-IMPORTS-]
