@@ -44,6 +44,7 @@ doc:
   - id: doi
   - id: github
   - id: venue
+  - id: abbreviations
 options:
   - id: logo
     type: file
@@ -83,6 +84,13 @@ options:
     description: |
       Allows to set the colortheme, e.g. red.darken(30%).
       Default set to rgb("#45429C").
+  - id: render_abbreviations
+    type: boolean
+    default: false
+    description: |
+      Automatically render the abbreviations list after keywords.
+      Set to true to enable auto-placement; leave false to place it manually
+      in the document body (#place-abbreviations()) or omit it entirely.
       
 
 parts:

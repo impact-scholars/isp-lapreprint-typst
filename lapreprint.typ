@@ -1,5 +1,15 @@
 #import "frontmatter.typ": orcidLogo, loadFrontmatter
 
+#let render-abbreviations(data) = {
+  if type(data) == dictionary and data.len() > 0 {
+    for (key, value) in data {
+      text(size: 9pt, weight: "semibold", key)
+      text(size: 9pt, ": " + value)
+      linebreak()
+    }
+  }
+}
+
 #let template(
   // The paper's title.
   title: "Paper Title",

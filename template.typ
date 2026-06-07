@@ -1,4 +1,15 @@
 #import "lapreprint.typ": *
+[# if doc.abbreviations #]
+#let abbreviations-dict = (
+[#- for key, value in doc.abbreviations -#]
+  "[-key-]": "[-value-]",
+[#- endfor -#]
+);
+#let place-abbreviations() = render-abbreviations(abbreviations-dict)
+[# else #]
+#let abbreviations-dict = none;
+#let place-abbreviations() = {}
+[# endif #]
 #show: template.with(
   title: "[-doc.title-]",
 [# if parts.abstract #]
@@ -127,3 +138,7 @@
 [-IMPORTS-]
 
 [-CONTENT-]
+
+[# if options.render_abbreviations == true #]
+#place-abbreviations()
+[# endif #]
